@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:method="POST" th:object="${bankInfo}" th:action="@{/banks}">
+
+
+    <select class="bank" id="curr" th:field="${bankInfo.currency}">
+        <option value="">Выберите валюту</option>
+        <option th:each="item : ${listCurrency}"
+                th:value="${item}"
+                th:text="${item}">
+        </option>
+    </select>
+
+    <div>
+        <p><b>Дата от:</b>
+    <input type="date" th:field="${bankInfo.startDate}" id="start-date"/>
+    </div>
+
+    <div>
+        <p><b>Дата до:</b>
+            <input value="Дата до" type="date" th:field="${bankInfo.endDate}" id="end-date"/>
+    </div>
+
+    <div>
+        <button>Выполнить</button>
+    </div>
+</form>
+
+<div>
+    <p><span th:text="${message}"></span></p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+</head>
+<body>
+<form th:method="GET" th:action="@{/banks}">
+    <div>
+        <button>Вернуться назад...</button>
+    </div>
+</form>
+
+<div id="app">
+    <div class="container">
+        <h1 class="app__h1 app-h1">График валют</h1>
+        <div class="app__chart app-chart">
+
+            <!-- нас интересует данная часть -->
+            <div class="app-chart__canvas">
+                <canvas class="chart"></canvas>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script th:inline="javascript">
+    window.onload = function () { // структура документа загружена
+
+        window.myLine = new Chart( // инициализируем плагин
+            document.querySelector('.chart'), // первым параметром передаем элемент canvas по селектору
+            // вторым параметром передаем настройки в виде объекта
+            {
+                type: 'line', // тип графика, в данном случае линейный
+                data: { // общие данные графика в виде объекта
+                    labels: [[${forX}]], // метки по оси X
+                    datasets: [ // набор данных, который будет отрисовываться в виде массива с объектами
+                        {
+                            label: 'К бел рублю', // название для определенного графика в виде строки
+                            data: [[${forY}]] // данные в виде массива с числами, количество должно совпадать с количеством меток по оси X
+                        }
+                    ]
+                },
+                options: {} // дополнительные опции для графика в виде объекта, если не нужны - передаем пустой объект
+            }
+        );
+
+    }
+</script>
+
+</body>
+</html>
